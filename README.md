@@ -28,7 +28,8 @@ generated section.
 Your project must contain a `src` folder next to the UDXCompiler
 executable with:
 
-    UDXCompiler/
+    YourProject/
+    ├── UDXCompiler.exe
     └── src/
         ├── main.cpp
         ├── main.hpp
