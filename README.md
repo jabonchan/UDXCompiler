@@ -29,7 +29,6 @@ Your project must contain a `src` folder next to the UDXCompiler
 executable with:
 
     UDXCompiler/
-    ├── UDXCompiler.exe
     └── src/
         ├── main.cpp
         ├── main.hpp
