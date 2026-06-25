@@ -39,7 +39,7 @@ executable with:
 
 After running UDXCompiler, the output files (`patch.nsotext` and `patch.sectext`) will be generated next to the executable.
 
-Tho files marked with * are mandatory to be in the `src` folder and referenced by your code.
+The files marked with * are mandatory to be in the `src` folder and referenced by your code.
 
 ## NSO Text Patches
 
@@ -178,7 +178,7 @@ Each entry contains:
 
 -   `Custom_Function_Name`
 
-    The name of your custom function containing the injected code (doesn't needs to be exactly the same name of the original function).
+    The name of your custom function containing the injected code (doesn't need to be exactly the same name of the original function).
 
 -   `target`
 
@@ -257,4 +257,4 @@ You must use the generated `.nsotext` and `.sectext` files with [`UDXPatcher`](h
 
 ## LICENSE
 
-UDXPatcher is licensed under MIT. By using this project you agree to everything stated in the license.
+UDXCompiler is licensed under MIT. By using this project you agree to everything stated in the license.
