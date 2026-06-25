@@ -1,14 +1,14 @@
-# UDXCompiler
+# UDXCompiler 🚀
 
 UDXCompiler is a toolchain for compiling custom C++ code to be injected
-into New Super Mario Bros. U Deluxe.
+into New Super Mario Bros. U Deluxe v1.0.0.
 
 Unlike normal Switch development environments, UDXCompiler does not
-depend on `stdlib`, `libnx`, or any Switch runtime libraries. It is
+have access to `stdlib`, `libnx`, or any Switch runtime libraries. It is
 designed for generating standalone machine code that can be patched
 directly into the game's NSO.
 
-## Overview
+## Overview 📖
 
 UDXCompiler takes C++ source code and generates two files:
 
@@ -23,7 +23,7 @@ game's main NSO.
 All variables and data used by the custom code are bundled inside this
 generated section.
 
-## Directory Structure
+## Directory Structure 📁
 
 Your project must contain a `src` folder next to the UDXCompiler
 executable with:
@@ -41,7 +41,7 @@ After running UDXCompiler, the output files (`patch.nsotext` and `patch.sectext`
 
 The files marked with * are mandatory to be in the `src` folder and referenced by your code.
 
-## NSO Text Patches
+## NSO Text Patches 🧩
 
 The `.nsotext` file contains static patches that replace existing
 instructions/data inside the game's `.text` section.
@@ -59,7 +59,7 @@ which is treated as:
 
 when specifying patches.
 
-## Custom Code Section
+## Custom Code Section ⚙️
 
 The `.sectext` file is a raw binary blob.
 
@@ -72,7 +72,7 @@ It contains:
 
 This blob is appended directly to the game's `.text` section.
 
-## Runtime Restrictions
+## Runtime Restrictions 🚫
 
 Generated code runs without:
 
@@ -84,7 +84,7 @@ Generated code runs without:
 
 Your code must be self-contained.
 
-## Memory Utilities
+## Memory Utilities 🧠
 
 UDXCompiler includes `memory.cpp` and `memory.hpp`.
 
@@ -108,7 +108,7 @@ starts.
 
 These files are required and must not be removed.
 
-## Virtual Address Lookup
+## Virtual Address Lookup 🔍
 
 UDXCompiler provides:
 
@@ -119,17 +119,16 @@ LOOKUP_VIRTUAL_ADDRESS(GAME_FUNCTION_OR_DATA_FILE_ADDRESS)
 which converts a physical `.text` section address into its runtime
 address.
 
-## Calling Switch / Game Functions
+## Calling Switch / Game Functions 🎮
 
 Because there is no Switch runtime environment, calls must be
 implemented manually.
 
 Use inline assembly for:
 
--   function calls
 -   SVC calls
--   register manipulation
--   custom ARM instructions
+-   Register manipulation
+-   Custom ARM instructions
 
 Example:
 
@@ -139,18 +138,18 @@ __asm__ volatile(
 );
 ```
 
-## Included Types
+## Included Types 🏷️
 
 `types.hpp` provides common C++ types needed when compiling without
 standard libraries.
 
-## Requirements
+## Requirements ✅
 
 -   devkitARM binaries in `PATH`
 -   C++ knowledge
 -   ARM assembly knowledge
 
-## Hooks/Trampolines
+## Hooks/Trampolines 🪝
 
 UDXCompiler supports automatic hook generation through trampolines.
 
@@ -158,7 +157,7 @@ A trampoline allows you to replace an existing game function with your
 own custom function while still being able to call the original
 function.
 
-### Creating a Hook
+### Creating a Hook 🛠️
 
 Next to the UDXCompiler executable, create a `metadata.json` file.
 
@@ -196,7 +195,7 @@ Each entry contains:
 This instruction is used to correctly preserve the overwritten code when
 creating the trampoline.
 
-### Defining the Trampoline
+### Defining the Trampoline 🧱
 
 After generating the project, define the trampoline in a header file:
 
@@ -206,7 +205,7 @@ TRAMPOLINE_START ReturnType Original_Function_Name(Parameters) TRAMPOLINE_END;
 
 The declaration must match the original function signature.
 
-### Using the Hook
+### Using the Hook 🎯
 
 Create your custom function using the name specified in `metadata.json`:
 
@@ -238,7 +237,7 @@ void* Custom_StageActor_StageActor(void* p1, void* p2) {
 
 Calling the trampoline will execute the original game function.
 
-### Notes
+### Notes 📝
 
 -   Hooks are generated at compile time.
 -   The trampoline automatically restores the overwritten instruction.
@@ -246,15 +245,15 @@ Calling the trampoline will execute the original game function.
 -   Function parameters must follow the ARM calling convention.
 -   Incorrect function signatures may corrupt registers or memory.
 
-## Building
+## Building 🔨
 
 Have `deno` available on `PATH` then run `compile.bat`. Place `assets` folder next to the generated executable.
 
-## Injecting Code and Patches
+## Injecting Code and Patches 💉
 
 You must use the generated `.nsotext` and `.sectext` files with [`UDXPatcher`](https://github.com/jabonchan/UDXPatcher).
 
 
-## LICENSE
+## LICENSE 📜
 
 UDXCompiler is licensed under MIT. By using this project you agree to everything stated in the license.
